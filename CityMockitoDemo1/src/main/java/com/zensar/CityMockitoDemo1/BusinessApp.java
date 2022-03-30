@@ -18,5 +18,7 @@ public class BusinessApp {
 	
 	public boolean login(String username, String password) {
 		return loginService.authenticate(username, password);
+		System.out.println("checking...");
 	}
+	
 }
