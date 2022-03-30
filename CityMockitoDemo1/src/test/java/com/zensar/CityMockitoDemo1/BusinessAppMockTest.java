@@ -34,7 +34,7 @@ public class BusinessAppMockTest {
 		spyList.add("ABC");
 		spyList.add("XYZ");
 		System.out.println("Spy : " + spyList.get(1));
-		System.out.println("Spy : " + spyList.get(0));
+		
 
 	}
 
