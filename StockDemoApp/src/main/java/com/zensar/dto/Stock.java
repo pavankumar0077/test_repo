@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor   // Is used to make paramaterized constructor
 @ApiModel(value = "Stock DTO")
 public class Stock {
 	@ApiModelProperty(value = "Stock identifier")
@@ -20,4 +19,6 @@ public class Stock {
 	
 	@ApiModelProperty(value = "Stock price")
 	private int price;
+
+	
 }
