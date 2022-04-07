@@ -3,6 +3,7 @@ package com.zensar.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zensar.dto.Stock;
+import com.zensar.service.StockService;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -26,62 +28,43 @@ import io.swagger.annotations.ApiParam;
 @CrossOrigin(origins = "http://localhost:4200")
 //@CrossOrigin(origins = "*")
 public class StockController {
+	
+	@Autowired
+	StockService stockService;
 
-	static List<Stock> stocks = new ArrayList<Stock>();
-	static {
-		stocks.add(new Stock(1, "Zensar","BSE",50));
-		stocks.add(new Stock(2, "IBM","NSE",20));
-		stocks.add(new Stock(3, "AMAZON","NSE",80));
-	}
+	
 	
 	@GetMapping(value = "/stock", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Reads all Stocks", notes = "This REST API return list of all stocks")
 	public List<Stock> getAllStocks() {
-		return stocks;
+		return stockService.getAllStocks();
 	}
 	
 	@GetMapping(value = "/stock/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Reads Stocks by Id", notes = "This REST API returns stock by Id")
 	public Stock getStockById(@ApiParam(value = "Stock id", name = "id") @PathVariable("id") int stockId) {
-		for(Stock stock : stocks) {
-			if(stock.getId()==stockId) {
-				return stock;
-			}
-		}
-		return null;
+		return stockService.getStockById(stockId);
 	}
 	
 	@PostMapping(value = "/stock", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
 			produces = {MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
 	@ApiOperation(value = "Creates New Stock", notes = "This REST API creates new stock")
 	public Stock createNewStock(@RequestBody Stock stock) {
-		stock.setId(stocks.size() + 1);
-		stocks.add(stock);
-		return stock;
+		return stockService.createNewStock(stock);
 		
 	}
 	
 	@PutMapping(value = "/stock/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Update Stock", notes = "This REST API update's the stock")
 	public Stock updateStock(@PathVariable("id") int stockId,@RequestBody Stock updatedStock) {
-		Stock existingStock = getStockById(stockId);
-		existingStock.setName(updatedStock.getName());
-		existingStock.setMarket(updatedStock.getMarket());
-		existingStock.setPrice(updatedStock.getPrice());
-		return updatedStock;
+		return stockService.updateStock(stockId, updatedStock);
 		
 	}
 	
 	@DeleteMapping(value = "/stock/{id}")
 	@ApiOperation(value = "Delete Stock", notes = "This REST API delete's the stock")
 	public boolean deleteStockById(@PathVariable("id") int stockId) {
-		for(Stock stock : stocks) {
-			if(stock.getId()==stockId) {
-				stocks.remove(stock);
-				return true;
-			}
-		}
-		return false;
+		return stockService.deleteStockById();
 	}
 	
 //	@DeleteMapping(value = "/stock/delete")
@@ -97,8 +80,7 @@ public class StockController {
 	@DeleteMapping(value = "/stock")
 	@ApiOperation(value = "Delete All Stocks", notes = "This REST API returns empty list")
 	public boolean deleteAllStocks( ) {
-		stocks.clear();
-		return true;
+		return stockService.deleteAllStocks();
 	}
 	
 	@GetMapping(value = "/employee")
