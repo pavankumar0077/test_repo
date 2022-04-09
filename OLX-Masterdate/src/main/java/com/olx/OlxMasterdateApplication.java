@@ -35,6 +35,7 @@ public class OlxMasterdateApplication {
 				.apiInfo(getApiInfo());
 	}
 	
+	
 	private ApiInfo getApiInfo() {
 		ApiInfo apiInfo = new ApiInfo(
 				"Stock REST API Documentation",

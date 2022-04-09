@@ -70,6 +70,20 @@ public class AdvertiseController {
 	onDate, fromDate, toDate, sortedBy, startIndex, records);
 	}
 	
+//	GetMapping(value="/search/filtercriteria", produces=MediaType.APPLICATION_JSON_VALUE)
+//	public List<AdvertiseDTO> searchAdvertisesByFilterCriteria(@RequestParam(name="searchText", required = false)String searchText,
+//	@RequestParam(name = "category", required = false, defaultValue = "0")int categoryId, @RequestParam(name="postedBy", required=false)String postedBy,
+//	@RequestParam(name="dateCondition", required=false)String dateCondition,
+//	@RequestParam(name="onDate", required=false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate onDate,
+//	@RequestParam(name="fromDate", required=false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+//	@RequestParam(name="toDate", required=false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate,
+//	@RequestParam(name="sortedBy", required=false)String sortedBy, @RequestParam(name = "startIndex", defaultValue="0")int startIndex, @RequestParam(name="records", defaultValue = "10")int records
+//	) {
+//	List<AdvertiseDTO> advertises = advertiseService.searchAdvertisesByFilterCriteria(searchText, categoryId, postedBy, dateCondition,
+//	onDate, fromDate, toDate, sortedBy, startIndex, records);
+//	return advertises;
+//	}
+	
 	@GetMapping(value = "/{advertiseId}", produces = {MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
 	@ApiOperation(value = "Reads all Advertisements by ID", notes = "This REST API returns All Advertisements by ID")
 	public Advertise returnAdv(@RequestHeader("auth-token") String authToken,int id) {

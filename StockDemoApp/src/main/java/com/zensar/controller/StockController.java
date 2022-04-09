@@ -1,10 +1,11 @@
 package com.zensar.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -108,5 +109,35 @@ public class StockController {
 //		System.out.println("Name : " +name);
 //		return true;
 //	}
+	
+	
+	@GetMapping(value="/stock/name/{name}", produces= { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	public ResponseEntity<List<Stock>> getStocksByName(@PathVariable("name") String stockName) {
+	return new ResponseEntity<List<Stock>>(stockService.getStocksByName(stockName), HttpStatus.OK);
+	}
+
+
+
+	@GetMapping(value="/stock/sort/{sortType}", produces= { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	public ResponseEntity<List<Stock>> getStocksSortedByName(@PathVariable("sortType") String sortType) {
+	return new ResponseEntity<List<Stock>>(stockService.getStocksSortedByName(sortType), HttpStatus.OK);
+	}
+
+
+
+	@GetMapping(value="/stock/{startIndex}/{records}", produces= { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	public ResponseEntity<List<Stock>> getStocksByPage(@PathVariable("startIndex") int startIndex,
+	@PathVariable("records") int records) {
+	return new ResponseEntity<List<Stock>>(stockService.getStocksByPage(startIndex, records), HttpStatus.OK);
+	}
+
+
+
+	@GetMapping(value="/stock/like/{namelike}", produces= { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	public ResponseEntity<List<Stock>> getStocksByNameLike(@PathVariable("namelike") String namelike) {
+	return new ResponseEntity<List<Stock>>(stockService.getStocksByNameLike(namelike), HttpStatus.OK);
+	}
+
+
 
 }

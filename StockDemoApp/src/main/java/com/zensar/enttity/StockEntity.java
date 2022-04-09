@@ -8,8 +8,11 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "STOCKS")
 public class StockEntity {
@@ -21,9 +24,10 @@ public class StockEntity {
 	
 	private String name;
 	
-	private String market;
+	@Column(name = "market")
+	private String marketname;
 	
-	
+	@Column(name = "price")
 	private int price;
 	
 	
