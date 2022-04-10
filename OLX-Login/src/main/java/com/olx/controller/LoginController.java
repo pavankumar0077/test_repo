@@ -36,8 +36,9 @@ public class LoginController {
 		return loginService.logout(authToken);
 	}
 	
-	@PostMapping(value = "/user", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-			produces = {MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
+	@PostMapping(value = "/user", consumes = { MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE }, produces = { MediaType.APPLICATION_XML_VALUE,
+					MediaType.APPLICATION_JSON_VALUE })
 	@ApiOperation(value = "Registeration of User", notes = "This REST API is used to register new user")
 	public User registerUser(@RequestBody User user) {
 		return loginService.registerUser(user);
