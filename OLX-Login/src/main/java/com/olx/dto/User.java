@@ -11,6 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @ApiModel(value = "OLX LOGIN DTO")
 public class User {
+	
+	@ApiModelProperty(value = "ID")
+	private int id;
+	
 	@ApiModelProperty(value = "FirstName")
 	private String firstName;
 	

@@ -88,14 +88,14 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		return convertEntityListIntoDTOList(advertiseEntityList);
 		}
 
-//	private List<Advertise> convertEntityListIntoDTOList(List<AdvertiseEntity> advertiseEntityList) {
-//		List<AdvertiseDTO> advertiseDtoList = new ArrayList<AdvertiseDTO>();
-//		for(AdvertiseEntity advertiseEntity : advertiseEntities) {
-//			AdvertiseDTO advertise = new AdvertiseDTO(advertiseEntity.getId,advertiseEntity.getTitle(), advertiseEntity., advertiseEntity);
-//			advertiseDtoList.add(advertise);
-//		}
-//		return advertiseDtoList;
-//	}
+	private List<Advertise> convertEntityListIntoDTOList(List<AdvertiseEntity> advertiseEntityList) {
+		List<AdvertiseDTO> advertiseDtoList = new ArrayList<AdvertiseDTO>();
+		for(AdvertiseEntity advertiseEntity : advertiseEntities) {
+			AdvertiseDTO advertise = new AdvertiseDTO(advertiseEntity.getId,advertiseEntity.getTitle(), advertiseEntity., advertiseEntity);
+			advertiseDtoList.add(advertise);
+		}
+		return advertiseDtoList;
+	}
 
 	@Override
 	public Advertise returnAdv(int id) {

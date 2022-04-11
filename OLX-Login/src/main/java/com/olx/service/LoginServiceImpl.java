@@ -16,7 +16,7 @@ public class LoginServiceImpl implements LoginService {
 	private static final User userEntity = null;
 	private static final User user = null;
 	
-	@Autowired(required = false)
+	@Autowired
 	OlxRepo olxRepo;
 
 	@Autowired
@@ -38,6 +38,7 @@ public class LoginServiceImpl implements LoginService {
 		UserEntity userEntity = convertDTOIntoEntity(user);
 		userEntity = olxRepo.save(userEntity);
 		return convertEntityIntoDTO(userEntity);
+		
 	}
 	
 
