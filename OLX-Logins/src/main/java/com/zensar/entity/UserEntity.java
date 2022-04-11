@@ -1,4 +1,4 @@
-package com.olx.entity;
+package com.zensar.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,8 +15,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "olxdetails")
 public class UserEntity {
-
-	
 
 	@Id
 	@GeneratedValue
@@ -37,5 +35,4 @@ public class UserEntity {
 
 	private double phone;
 
-	
 }

@@ -1,5 +1,7 @@
 package com.olx.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.olx.dto.User;
 import com.olx.service.LoginService;
+
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -50,6 +53,12 @@ public class LoginController {
 //	public User getUser(@RequestHeader("auth-token") String authToken) {
 //		return loginService.getUser(authToken);
 //	}
+	
+	@GetMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Reads all Stocks", notes = "This REST API return list of all stocks")
+	public List<User> getAllUsers() {
+		return loginService.getAllUsers();
+	}
 	
 	@GetMapping(value = "/user", produces = {MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
 	@ApiOperation(value = "Get Users", notes = "This REST API returns all Users")
