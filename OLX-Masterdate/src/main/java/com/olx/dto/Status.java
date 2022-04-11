@@ -1,6 +1,5 @@
 package com.olx.dto;
 
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -10,13 +9,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(value = "CATEGORY DTO")
-public class Category {
+
+@ApiModel(value = "Status DTO")
+public class Status {
 	
-	@ApiModelProperty(value = "Category Id")
+	@ApiModelProperty(value = "Status Id")
 	private int id;
 	
-	@ApiModelProperty(value = "Category Name")
-	private String category_Name;
-
+	@ApiModelProperty(value = " Status Name ")
+	private String statusName;
 }

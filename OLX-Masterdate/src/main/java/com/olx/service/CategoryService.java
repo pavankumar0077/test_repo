@@ -1,11 +1,12 @@
 package com.olx.service;
 
 import java.util.List;
-
+import com.olx.dto.Category;
+import com.olx.dto.Status;
 
 
 public interface CategoryService {
-	public List<String> category();
-	public List<String> categoryStatus();
+    public List<Category> getAllCategory();
 
+    public List<Status> getAllStatus();
 }

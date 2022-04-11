@@ -2,6 +2,7 @@ package com.olx;
 
 import java.util.ArrayList;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +22,11 @@ public class OlxMasterdateApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(OlxMasterdateApplication.class, args);
+	}
+	
+	@Bean
+	public ModelMapper getModelMapper() {
+		return new ModelMapper();
 	}
 	
 	@Bean

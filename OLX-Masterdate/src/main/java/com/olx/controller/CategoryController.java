@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.olx.dto.Category;
+import com.olx.dto.Status;
 import com.olx.service.CategoryService;
 
 import io.swagger.annotations.ApiOperation;
@@ -18,25 +19,20 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/olx/advertise")
 @CrossOrigin(origins = "*")
 public class CategoryController {
-	
+
 	@Autowired
 	CategoryService categoryService;
-	
-	@GetMapping(value = "/advertise/category", produces = {MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
-	@ApiOperation(value = "Reads all Categories", notes = "This REST API returns all categories")
-	public List category() {
-		return categoryService.category();
-		
+
+	@GetMapping(value = "/category", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	@ApiOperation(value = "Reads all category", notes = "This REST API returns list of all categories")
+	public List<Category> getAllCategory() {
+		return categoryService.getAllCategory();
 	}
-	
-	
-	@GetMapping(value = "//advertise/status", produces = {MediaType.APPLICATION_XML_VALUE,MediaType.APPLICATION_JSON_VALUE})
-	@ApiOperation(value = "Reads all Status", notes = "This REST API return all Status")
-	public List categoryStatus() {
-		return categoryService.categoryStatus();
-		
+
+	@ApiOperation(value = "Reads all status", notes = "This REST API returns list of all status")
+	@GetMapping(value = "/status", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	public List<Status> getAllStatus() {
+		return categoryService.getAllStatus();
 	}
-	
-	
 
 }
