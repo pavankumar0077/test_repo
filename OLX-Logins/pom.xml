@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.olx</groupId>
-	<artifactId>OLX-Logins</artifactId>
+	<artifactId>OLX-Login</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>OLX-Login</name>
 	<description>Demo project for Spring Boot</description>

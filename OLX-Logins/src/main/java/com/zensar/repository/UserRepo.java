@@ -6,4 +6,6 @@ import com.zensar.entity.UserEntity;
 
 public interface UserRepo extends JpaRepository<UserEntity, Integer> {
 
+	UserEntity findByFirstName(String authToken);
+
 }

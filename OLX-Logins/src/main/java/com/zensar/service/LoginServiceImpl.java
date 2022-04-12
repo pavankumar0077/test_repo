@@ -43,16 +43,10 @@ public class LoginServiceImpl implements LoginService {
 		return convertEntityIntoDTO(userEntity);
 	}
 
-//    @Override
-//    public List<User> getUserDetails(String authToken) {
-//	List<UserEntity> userEntity = userRepo.findAll();
-//	List<UserDetails> userDto = convertEntityListIntoDTOList(userEntity);
-//	return userDto;
-//    }
 
 	// get a user
 	@Override
-	public User getUser(int id) {
+	public User getUserById(int id) {
 		UserEntity uEntity = userRepo.getById(id);
 		return convertEntityIntoDTO(uEntity);
 
@@ -64,26 +58,32 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	private UserEntity convertDTOIntoEntity(User user) {
-		TypeMap<User, UserEntity> tMap = modelMapper.typeMap(User.class, UserEntity.class);
+//		TypeMap<User, UserEntity> tMap = modelMapper.typeMap(User.class, UserEntity.class);
 		UserEntity userEntity = modelMapper.map(user, UserEntity.class);
 		return userEntity;
 	}
 
 	private User convertEntityIntoDTO(UserEntity userEntity) {
-		TypeMap<UserEntity, User> tMap = modelMapper.typeMap(UserEntity.class, User.class);
+//		TypeMap<UserEntity, User> tMap = modelMapper.typeMap(UserEntity.class, User.class);
 		User user = modelMapper.map(userEntity, User.class);
 		return user;
 	}
 
+	@Override
+	public User getUser(String authToken) {
+		UserEntity userentity = userRepo.findByFirstName(authToken);
+		return convertEntityIntoDTO(userentity);
+	}
+
 //  @Override
 //  public User getUser() {
-//	List<UserEntity> userEntityList = userRepo.findAll())
+//	List<UserEntity> userEntityList = userRepo.findAll();
 //	List<User> userDtoList = new ArrayList<User>();
 //	for (UserEntity userEntity : userEntityList) {
 //	    User user = convertEntityIntoDTO(userEntity);
 //	    userDtoList.add(user);
 //	}
-//	return user;
+//	return getUser();
 //  }
 
 }

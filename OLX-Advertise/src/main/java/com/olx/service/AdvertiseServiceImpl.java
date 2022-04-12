@@ -1,21 +1,14 @@
 package com.olx.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.olx.dto.Advertise;
-import com.olx.entity.AdvertiseEntity;
 
 @Service
 public class AdvertiseServiceImpl implements AdvertiseService {
@@ -71,9 +64,19 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		if(searchText!=null && !"".equalsIgnoreCase(searchText)) {
 			predicateTitle = criteriaBuilder.like(rootEntity.get("title"), "%" + searchText + "%");
 			predicateDescription = criteriaBuilder.like(rootEntity.get("description"), "%" + searchText + "%");
-//			predicateId = criteriaBuilder.like(rootEntity.get("id"), "%" + searchText + "%");
-			predicateSearchText = criteriaBuilder.or(predicateTitle, predicateDescription);
-			
+			predicateSearchText = criteriaBuilder.or(predicateTitle, predicateDescription);	
+		}
+		
+		if (postedBy != null && !"".equalsIgnoreCase(postedBy)) {
+			predicatePostedBy = criteriaBuilder.equal(root.get(""), PostedBy);
+		}
+		
+		if(dateCondition != null && dateCondition.contains("equal")) {
+			predicateDateCondition = criteriaBuilder.equal(root.get("createDate"),onDate);
+		}
+		
+		if(categoryId > 0) {
+			predicateCategory = criteriaBuilder.equal(root.get("category"), categoryId);
 		}
 		
 		//Write a code to create predicates for dateConditions, categoryId, posted_by etc.
@@ -84,18 +87,18 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 		typedQuery.setFirstResult(startIndex);
 		typedQuery.setMaxResults(records);
 		
-		List<AdvertiseEntity> advertiseEntityList = typedQuery.getResultList();
-		return convertEntityListIntoDTOList(advertiseEntityList);
-		}
+//		List<AdvertiseEntity> advertiseEntityList = typedQuery.getResultList();
+//		return convertEntityListIntoDTOList(advertiseEntityList);
+//		}
 
-	private List<Advertise> convertEntityListIntoDTOList(List<AdvertiseEntity> advertiseEntityList) {
-		List<AdvertiseDTO> advertiseDtoList = new ArrayList<AdvertiseDTO>();
-		for(AdvertiseEntity advertiseEntity : advertiseEntities) {
-			AdvertiseDTO advertise = new AdvertiseDTO(advertiseEntity.getId,advertiseEntity.getTitle(), advertiseEntity., advertiseEntity);
-			advertiseDtoList.add(advertise);
-		}
-		return advertiseDtoList;
-	}
+//	private List<Advertise> convertEntityListIntoDTOList(List<AdvertiseEntity> advertiseEntityList) {
+//		List<AdvertiseDTO> advertiseDtoList = new ArrayList<AdvertiseDTO>();
+//		for(AdvertiseEntity advertiseEntity : advertiseEntities) {
+//			AdvertiseDTO advertise = new AdvertiseDTO(advertiseEntity.getId,advertiseEntity.getTitle(), advertiseEntity., advertiseEntity);
+//			advertiseDtoList.add(advertise);
+//		}
+//		return advertiseDtoList;
+//	}
 
 	@Override
 	public Advertise returnAdv(int id) {

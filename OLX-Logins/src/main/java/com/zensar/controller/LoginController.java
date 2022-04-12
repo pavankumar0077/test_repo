@@ -22,44 +22,48 @@ import io.swagger.annotations.ApiOperation;
 @CrossOrigin(origins = "*")
 
 public class LoginController {
-    @Autowired
-    LoginService loginService;
+	@Autowired
+	LoginService loginService;
 
-    @PostMapping(value = "/user/authenticate", consumes = { MediaType.APPLICATION_JSON_VALUE,
-	    MediaType.APPLICATION_XML_VALUE })
-    @ApiOperation(value = "user Auth", notes = "authenticating a user using tokens")
+	@PostMapping(value = "/user/authenticate", consumes = { MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE })
+	@ApiOperation(value = "user Auth", notes = "authenticating a user using tokens")
+	public String authenticate(@RequestBody User user) {
+		return loginService.authenticate(user);
+	}
 
-    public String authenticate(@RequestBody User user) {
-	return loginService.authenticate(user);
-    }
+	@DeleteMapping(value = "/user/logout")
+	@ApiOperation(value = "logs out  a user", notes = "logs out a user session")
+	public boolean logout(@RequestHeader("auth-token") String authToken) {
+		return loginService.logout(authToken);
+	}
 
-    @DeleteMapping(value = "/user/logout")
-    @ApiOperation(value = "logs out  a user", notes = "logs out a user session")
+	// 3
+	@PostMapping(value = "/user", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	@ApiOperation(value = "create a new user", notes = "This REST api post a new user")
+	public User registerUser(@RequestBody User user) {
+		return loginService.registerUser(user);
+	}
 
-    public boolean logout(@RequestHeader("auth-token") String authToken) {
-	return loginService.logout(authToken);
-    }
-
-    // 3
-    @PostMapping(value ="/user", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    @ApiOperation(value = "create a new user", notes = "This REST api post a new user")
-    public User registerUser(@RequestBody User user) {
-	return loginService.registerUser(user);
-    }
-
+    //4
     @ApiOperation(value = "getUser", notes = "return a user")
-//4
     @GetMapping(value = "/user/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-    public User getUser(@PathVariable("id") int id) {
-	return loginService.getUser(id);
+    public User getUserById(@PathVariable("id") int id) {
+	return loginService.getUserById(id);
     }
 
-    @GetMapping(value = "/token/validate", produces = { MediaType.APPLICATION_JSON_VALUE,
-	    MediaType.APPLICATION_XML_VALUE })
-    @ApiOperation(value = "token Validation", notes = " validates a token ")
+	// 4
+	@GetMapping(value = "/user", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	@ApiOperation(value = "Getting a User Information", notes = "This Rest API helps to get Authenticated User Data")
+	public User getUser(@RequestHeader("auth-token") String authToken) {
+		return loginService.getUser(authToken);
+	}
 
-    public String validateToken(String authToken) {
-	return loginService.validateToken(authToken);
+	@GetMapping(value = "/token/validate", produces = { MediaType.APPLICATION_JSON_VALUE,
+			MediaType.APPLICATION_XML_VALUE })
+	@ApiOperation(value = "token Validation", notes = " validates a token ")
+	public String validateToken(String authToken) {
+		return loginService.validateToken(authToken);
 
-    }
+	}
 }

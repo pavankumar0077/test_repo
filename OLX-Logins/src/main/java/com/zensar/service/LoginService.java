@@ -12,10 +12,14 @@ public interface LoginService {
 
 	public User registerUser(User user);
 
-	public User getUser(int id);
+	public User getUserById(int id);
+	
+	public User getUser(String authToken);
 
 	public String validateToken(String authToken);
 
-//	User getUser();
+//	public User getUser();
+
+
 
 }
